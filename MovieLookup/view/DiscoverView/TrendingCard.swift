@@ -12,6 +12,7 @@ struct TrendingCard: View {
 
     let trendingItem: Movie
 
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             AsyncImage(url: trendingItem.backdropURL) { image in

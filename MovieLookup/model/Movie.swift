@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct Movie: Identifiable, Decodable {
     let adult: Bool
     let id: Int

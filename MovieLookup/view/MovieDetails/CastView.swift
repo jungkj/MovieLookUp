@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct CastView: View {
-
     let cast: CastProfile
 
     var body: some View {

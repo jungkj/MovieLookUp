@@ -13,7 +13,7 @@ class MovieDiscoverViewModel: ObservableObject {
     @Published var trending: [Movie] = []
     @Published var searchResults: [Movie] = []
 
-    static let apiKey = "adeefc9efe51bda1eb5861bb81f5bfea"
+    let apiKey = "adeefc9efe51bda1eb5861bb81f5bfea"
    
     func loadTrending() {
         Task {

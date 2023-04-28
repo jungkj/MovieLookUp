@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MovieDetailView: View {
 
+    
     @Environment(\.dismiss) var dismiss
     @StateObject var model = MovieDetailsViewModel()
     let movie: Movie

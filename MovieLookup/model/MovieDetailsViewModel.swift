@@ -15,6 +15,7 @@ class MovieDetailsViewModel: ObservableObject {
     @Published var cast: [MovieCredits.Cast] = []
     @Published var castProfiles: [CastProfile] = []
 
+    
     func movieCredits(for movieID: Int) async {
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)/credits?api_key=\(MovieDiscoverViewModel.apiKey)&language=en-US")!
         do {
