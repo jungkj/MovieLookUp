@@ -37,6 +37,7 @@ struct DiscoverView: View {
                                     } label: {
                                         TrendingCard(trendingItem: trendingItem)
                                     }
+                                    .font(.title2)
                                 }
                             }
                             .padding(.horizontal)
@@ -148,6 +149,9 @@ struct DiscoverView: View {
             viewModel.fetchMovies()
         }
         .environmentObject(UserMoviesService.shared)
+        
+
+        
     }
 }
 

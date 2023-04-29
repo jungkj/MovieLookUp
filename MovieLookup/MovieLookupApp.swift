@@ -21,6 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct MovieLookupApp: App {
+    // Custom Navigation Stack so that the bottom bar is the same color as rest of the app  
     init() {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()

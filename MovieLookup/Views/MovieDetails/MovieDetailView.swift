@@ -46,6 +46,13 @@ struct MovieDetailView: View {
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                         Spacer()
+                        Image(systemName: "hand.thumbsup.fill")
+                            .foregroundColor(.yellow)
+                        Text(String(format: "%.1f", movie.vote_average))
+                            .foregroundColor(.yellow)
+                            .fontWeight(.heavy)
+                        Spacer()
+
                         
                         Button(action: {
                             userMoviesService.toggleLike(for: movie)
@@ -101,6 +108,7 @@ struct MovieDetailView: View {
                     .fontWeight(.bold)
             }
             .padding(.leading)
+            
         }
         .toolbar(.hidden, for: .navigationBar)
         .task {
