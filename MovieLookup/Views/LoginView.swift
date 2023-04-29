@@ -98,7 +98,7 @@ struct LoginView: View {
             }
             
             .fullScreenCover(isPresented: $presentSheet) {
-                DiscoverView()
+                homeView()
         }
         }
         

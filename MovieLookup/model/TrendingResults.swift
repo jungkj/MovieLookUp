@@ -2,7 +2,7 @@
 //  TrendingResults.swift
 //  MovieLookup
 //
-//  Created by Andy Jung on 2/4/2023.
+//  Created by Andy Jung on 4/2/2023.
 //
 
 import Foundation

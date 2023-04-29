@@ -2,7 +2,7 @@
 //  Movie.swift
 //  MovieLookup
 //
-//  Created by Andy Jung on 2/4/2023.
+//  Created by Andy Jung on 4/2/2023.
 //
 
 import Foundation
@@ -23,8 +23,9 @@ struct Movie: Identifiable, Decodable {
     }
 
     var posterThumbnail: URL? {
-        let baseURL = URL(string: "https://image.tmdb.org/t/p/w100")
-        return baseURL?.appending(path: poster_path ?? "")
+        guard let poster_path = poster_path else { return nil }
+        let baseURL = URL(string: "https://image.tmdb.org/t/p/w185")
+        return baseURL?.appendingPathComponent(poster_path)
     }
 
     var poster: URL? {

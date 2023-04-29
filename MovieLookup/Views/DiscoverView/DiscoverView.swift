@@ -2,7 +2,7 @@
 //  DiscoverView.swift
 //  MovieLookup
 //
-//  Created by Andy Jung on 2/4/2023.
+//  Created by Andy Jung on 4/2/2023.
 //
 
 
@@ -10,8 +10,9 @@ import SwiftUI
 
 struct DiscoverView: View {
 
-    @StateObject var viewModel = MovieDiscoverViewModel()
+    @StateObject var viewModel = MovieViewModel()
     @State var searchText = ""
+    @State private var isLiked = false
 
     var body: some View {
         NavigationStack {
@@ -40,12 +41,63 @@ struct DiscoverView: View {
                             }
                             .padding(.horizontal)
                         }
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .leading, spacing: 10){
+                            Text("What to Watch")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
+                            
+                            ScrollView{
+                                LazyVStack(alignment: .leading){
+                                    ForEach(viewModel.fetch){ movie in
+                                        VStack(alignment: .leading){
+                                            NavigationLink(destination: MovieDetailView(movie: movie)){
+                                                Text(movie.title)
+                                                    .foregroundColor(.white)
+                                                    .fontWeight(.semibold)
+                                            }
+                                        }
+                                        HStack{NavigationLink(destination:MovieDetailView(movie: movie)){
+                                            AsyncImage(url: movie.posterThumbnail){ image in
+                                                image
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width:50, height: 75)
+                                                    .cornerRadius(5)
+                                            } placeholder: {
+                                                ProgressView()
+                                                    .frame(width: 50, height: 75)
+                                            }
+                                        }
+                                            
+                                            Text(movie.overview)
+                                                .foregroundColor(.white)
+                                                .lineLimit(5)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                        }
+                                        .clipped()
+                                        Divider()
+                                            .background(Color.white.opacity(0.4))
+                                    }
+                                    .foregroundColor(.white)
+                                    
+                                }
+
+                                
+                                
+                            }
+                            
+                        }
+                        .padding(.horizontal)
                     }
                 } else {
                     LazyVStack() {
-                        ForEach(viewModel.searchResults) { item in
+                        ForEach(viewModel.searchResults) { movie in
                             HStack {
-                                AsyncImage(url: item.backdropURL) { image in
+                                AsyncImage(url: movie.backdropURL) { image in
                                     image
                                         .resizable()
                                         .scaledToFill()
@@ -58,13 +110,13 @@ struct DiscoverView: View {
                                 .cornerRadius(10)
 
                                 VStack(alignment:.leading) {
-                                    Text(item.title)
+                                    Text(movie.title)
                                         .foregroundColor(.white)
                                         .font(.headline)
 
                                     HStack {
                                         Image(systemName: "hand.thumbsup.fill")
-                                        Text(String(format: "%.1f", item.vote_average))
+                                        Text(String(format: "%.1f", movie.vote_average))
                                         Spacer()
                                     }
                                     .foregroundColor(.yellow)
@@ -83,6 +135,7 @@ struct DiscoverView: View {
             .background(Color(red:39/255,green:40/255,blue:59/255).ignoresSafeArea())
         }
         .searchable(text: $searchText)
+        
         .onChange(of: searchText) { newValue in
             if newValue.count > 2 {
                 viewModel.search(term: newValue)
@@ -90,7 +143,9 @@ struct DiscoverView: View {
         }
         .onAppear {
             viewModel.loadTrending()
+            viewModel.fetchMovies()
         }
+        .environmentObject(UserMoviesService.shared)
     }
 }
 
