@@ -96,38 +96,40 @@ struct DiscoverView: View {
                 } else {
                     LazyVStack() {
                         ForEach(viewModel.searchResults) { movie in
-                            HStack {
-                                AsyncImage(url: movie.backdropURL) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 80, height: 120)
-                                } placeholder: {
-                                    ProgressView()
-                                        .frame(width: 80, height: 120)
-                                }
-                                .clipped()
-                                .cornerRadius(10)
-
-                                VStack(alignment:.leading) {
-                                    Text(movie.title)
-                                        .foregroundColor(.white)
-                                        .font(.headline)
-
-                                    HStack {
-                                        Image(systemName: "hand.thumbsup.fill")
-                                        Text(String(format: "%.1f", movie.vote_average))
-                                        Spacer()
+                            NavigationLink(destination: MovieDetailView(movie: movie)){
+                                HStack {
+                                    AsyncImage(url: movie.backdropURL) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 80, height: 120)
+                                    } placeholder: {
+                                        ProgressView()
+                                            .frame(width: 80, height: 120)
                                     }
-                                    .foregroundColor(.yellow)
-                                    .fontWeight(.heavy)
+                                    .clipped()
+                                    .cornerRadius(10)
+                                    
+                                    VStack(alignment:.leading) {
+                                        Text(movie.title)
+                                            .foregroundColor(.white)
+                                            .font(.headline)
+                                        
+                                        HStack {
+                                            Image(systemName: "hand.thumbsup.fill")
+                                            Text(String(format: "%.1f", movie.vote_average))
+                                            Spacer()
+                                        }
+                                        .foregroundColor(.yellow)
+                                        .fontWeight(.heavy)
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
+                                .padding()
+                                .background(Color(red:61/255,green:61/255,blue:88/255))
+                                .cornerRadius(20)
+                                .padding(.horizontal)
                             }
-                            .padding()
-                            .background(Color(red:61/255,green:61/255,blue:88/255))
-                            .cornerRadius(20)
-                            .padding(.horizontal)
                         }
                     }
                 }
