@@ -27,8 +27,7 @@ struct DiscoverView: View {
                                 .fontWeight(.heavy)
                             Spacer()
                         }
-                        .padding(.horizontal
-                        )
+                        .padding(.horizontal)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(viewModel.trending) { trendingItem in

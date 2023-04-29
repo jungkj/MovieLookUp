@@ -15,9 +15,10 @@ class MovieDetailsViewModel: ObservableObject {
     @Published var cast: [MovieCredits.Cast] = []
     @Published var castProfiles: [CastProfile] = []
 
+    let apiKey = "adeefc9efe51bda1eb5861bb81f5bfea"
     
     func movieCredits(for movieID: Int) async {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)/credits?api_key=\(MovieDiscoverViewModel.apiKey)&language=en-US")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)/credits?api_key=\(apiKey)&language=en-US")!
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let credits = try JSONDecoder().decode(MovieCredits.self, from: data)
@@ -31,7 +32,7 @@ class MovieDetailsViewModel: ObservableObject {
     func loadCastProfiles() async {
         do {
             for member in cast {
-                let url = URL(string: "https://api.themoviedb.org/3/person/\(member.id)?api_key=\(MovieDiscoverViewModel.apiKey)&language=en-US")!
+                let url = URL(string: "https://api.themoviedb.org/3/person/\(member.id)?api_key=\(apiKey)&language=en-US")!
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let profile = try JSONDecoder().decode(CastProfile.self, from: data)
                 castProfiles.append(profile)
